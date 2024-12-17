@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundedTopCorners" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="hello">
+        <item name="android:textSize">40dp</item>
+        <item name="fontFamily">cursive</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="btn_signin2">
+        <item name="android:textSize">16dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/cus_btn_orange</item>
+    </style>
+
+    <style name="SIGNIN">
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">#097D1A</item>
+        <item name="fontFamily">sans-serif-thin</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="or_continue_with">
+        <item name="android:textSize">15dp</item>
+        <item name="android:textColor">@color/perpure</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="edt_email">
+        <item name="android:background">@drawable/cus_edt</item>
+        <item name="android:drawableLeft">@drawable/baseline_email_24</item>
+        <item name="android:drawablePadding">15dp</item>
+        <item name="android:hint">Example@gmail.com</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+
+    <style name="edt_password">
+        <item name="android:background">@drawable/cus_edt</item>
+        <item name="android:drawableLeft">@drawable/baseline_lock_24</item>
+        <item name="android:drawablePadding">15dp</item>
+        <item name="android:hint">@string/signinpassword</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:padding">15dp</item>
+        <item name="android:textColorHint">@color/white</item>
+    </style>
+</resources>

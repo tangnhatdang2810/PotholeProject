@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/labelsetting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAllCaps="true"
+        android:text="@string/setting"
+        android:textColor="#699C81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgprofile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/labelsetting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/user"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="3dp"/>
+
+    <ImageView
+        android:id="@+id/iconname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_perm_identity_24"
+        app:layout_constraintTop_toBottomOf="@id/imgprofile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/username"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textColor="#699C81"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/imgprofile"
+        app:layout_constraintStart_toEndOf="@id/iconname"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tvname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintStart_toStartOf="@id/username"/>
+
+    <ImageView
+        android:id="@+id/iconmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_email_24_1"
+        app:layout_constraintTop_toBottomOf="@id/tvname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/usermail"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/usermail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/useremail"
+        android:textColor="#699C81"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iconmail"
+        app:layout_constraintTop_toBottomOf="@id/tvname" />
+
+    <TextView
+        android:id="@+id/tvemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/usermail"
+        app:layout_constraintStart_toStartOf="@id/usermail"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/tvemail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconlanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_language_24"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/changeLanguage"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/changeLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/change_language"
+        android:textSize="20sp"
+        android:textColor="	#00bfff"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@id/iconlanguage"/>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/changeLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/iconsignout"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/baseline_logout_24"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/signout"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/sign_out"
+        android:textColor="#ff0000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        app:layout_constraintStart_toEndOf="@id/iconsignout"
+        android:layout_marginStart="15dp"/>
+
+    <ImageView
+        android:id="@+id/iconupdate"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/update"
+        app:layout_constraintTop_toBottomOf="@id/divider1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updateprofile"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/updateprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/update_profile"
+        android:textSize="20dp"
+        android:textColor="#ffa500"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/divider1"
+        app:layout_constraintStart_toEndOf="@id/iconupdate"
+        android:layout_marginStart="15dp"/>
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/updateprofile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="8dp"
+        app:menu="@menu/bottom_menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:itemIconTint="@color/color"
+        app:itemTextColor="@color/color"
+        app:labelVisibilityMode="auto"
+        android:layout_gravity="bottom"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
