@@ -115,8 +115,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -149,6 +152,8 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
     private List<Point> routePoints = new ArrayList<>();
 
     private boolean isNavigationStopped = false;
+
+    boolean isDestinationSet = false;
 
     //Sensor Accelerometer
     private SensorManager sensorManager;
@@ -409,6 +414,7 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
 
         mapview = findViewById(R.id.mapView);
         fabClear = findViewById(R.id.fabClear);
+        fabClear.hide();
         fabadd = findViewById(R.id.fabadd);
         fabspeed = findViewById(R.id.fabspeed);
         fab = findViewById(R.id.fab);
@@ -466,11 +472,17 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                         PointAnnotationOptions pointAnnotationOptions = new PointAnnotationOptions().withTextAnchor(TextAnchor.CENTER).withIconImage(bitmap1)
                                 .withPoint(point);
                         pointAnnotationManager1.create(pointAnnotationOptions);
+                        fabClear.show();
+                        isDestinationSet = true;
 
                         setRoute.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                fetchRoute(point);
+                                if (isDestinationSet){
+                                    fetchRoute(point);
+                                } else {
+                                    Toast.makeText(MapActivity.this, getString(R.string.plserlocatinmap), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                         return true;
@@ -532,10 +544,23 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                         SharePothole location1 = dataSnapshot.getValue(SharePothole.class);
                                         // Kiểm tra vị trí của marker và dữ liệu trong Firebase có trùng khớp không
                                         if (location1 != null && pointAnnotation.getPoint().longitude() == location1.getLongitude() && pointAnnotation.getPoint().latitude() == location1.getLatitude()) {
+                                            String severityLocalized = "";
+                                            switch (location1.getSeverity()) {
+                                                case "Nhẹ":
+                                                    severityLocalized = getString(R.string.nhe);
+                                                    break;
+                                                case "Vừa":
+                                                    severityLocalized = getString(R.string.vua);
+                                                    break;
+                                                case "Nặng":
+                                                    severityLocalized = getString(R.string.nang);
+                                                    break;
+                                            }
+
                                             String info = getString(R.string.contributorname) + location1.getName() + "\n" +
                                                     getString(R.string.location) + location1.getLatitude() + ", " + location1.getLongitude() + "\n" +
                                                     getString(R.string.contributiondate) + location1.getDate() + "\n" +
-                                                    getString(R.string.severity) + location1.getSeverity();
+                                                    getString(R.string.severity) + severityLocalized;
 
                                             // Tạo Dialog để hiển thị thông tin
                                             new AlertDialog.Builder(MapActivity.this)
@@ -586,6 +611,13 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                     public void onClick(DialogInterface dialog, int which) {
                                         // Lưu mức độ người dùng chọn vào selectedSeverity
                                         selectedSeverity[0] = severityOptions[which];
+                                        if (selectedSeverity[0].equals("Mild") || selectedSeverity[0].equals("Léger")) {
+                                            selectedSeverity[0] = "Nhẹ";
+                                        } else if (selectedSeverity[0].equals("Moderate") || selectedSeverity[0].equals("Modéré")) {
+                                            selectedSeverity[0] = "Vừa";
+                                        } else if (selectedSeverity[0].equals("Severe") || selectedSeverity[0].equals("Sévère")) {
+                                            selectedSeverity[0] = "Nặng";
+                                        }
                                     }
                                 })
                                 .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
@@ -622,6 +654,8 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                     public void onClick(View view) {
                         mapboxNavigation.setNavigationRoutes(Collections.emptyList());
                         routePoints.clear();
+                        fabClear.hide();
+                        isDestinationSet = false;
                         pointAnnotationManager1.deleteAll();
                     }
                 });
@@ -644,10 +678,17 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                         pointAnnotationManager1.create(pointAnnotationOptions);
                         updateCamera(placeAutocompleteSuggestion.getCoordinate(), 0.0);
 
+                        isDestinationSet = true;
+
                         setRoute.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                fetchRoute(placeAutocompleteSuggestion.getCoordinate());
+                                if (isDestinationSet) {
+                                    fetchRoute(placeAutocompleteSuggestion.getCoordinate());
+                                    fabClear.show();
+                                } else {
+                                    Toast.makeText(MapActivity.this, getString(R.string.plserlocatinmap), Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }
@@ -933,6 +974,15 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                 if (currentTime - bumpSessionStartTime > SESSION_DURATION) {
                     isBumpSessionActive = false;
                     String severity = classifyBump(maxAccelerationInSession);
+                    String severity1;
+
+                    if (severity.equals("Nhẹ")){
+                        severity1 = getString(R.string.nhe);
+                    } else if (severity.equals("Vừa")){
+                        severity1 = getString(R.string.vua);
+                    } else {
+                        severity1 = getString(R.string.nang);
+                    }
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user == null) {
@@ -945,7 +995,7 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                     // Hiển thị AlertDialog
                     AlertDialog alertDialog = new AlertDialog.Builder(MapActivity.this)
                             .setTitle(getString(R.string.selectpotholelevel))
-                            .setMessage(getString(R.string.detect1pothole) + severity + getString(R.string.wanttosaveinfo))
+                            .setMessage(getString(R.string.detect1pothole) + severity1 + getString(R.string.wanttosaveinfo))
                             .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -972,7 +1022,7 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                             .setNegativeButton(getString(R.string.cancel), null) // Nếu người dùng không muốn chọn mức độ, có thể hủy
                             .show();
 
-                    // Tạo Handler để tự động đóng AlertDialog sau 2 giây
+                    // Tạo Handler để tự động đóng AlertDialog sau 3 giây
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -980,7 +1030,7 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                 alertDialog.dismiss(); // Đóng AlertDialog nếu còn hiển thị
                             }
                         }
-                    }, 2000); // Thời gian trì hoãn là 2000ms (2 giây)
+                    }, 3000); // Thời gian trì hoãn là 3000ms (3 giây)
                 }
             }
             lastAcceleration = acceleration;

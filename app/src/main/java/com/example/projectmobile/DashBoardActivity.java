@@ -214,9 +214,9 @@ public class DashBoardActivity extends AppCompatActivity {
         // Tạo BarDataSet với các giá trị stack
         BarDataSet stackedDataSet = new BarDataSet(stackedEntries, getString(R.string.potholebylevel));
         stackedDataSet.setColors(
-                ColorTemplate.COLORFUL_COLORS[0], // Màu cho Nhẹ
-                ColorTemplate.COLORFUL_COLORS[1], // Màu cho Vừa
-                ColorTemplate.COLORFUL_COLORS[2]  // Màu cho Nặng
+                Color.parseColor("#4CAF50"), // Màu cho Nhẹ
+                Color.parseColor("#2196F3"), // Màu cho Vừa
+                Color.parseColor("#F44336")  // Màu cho Nặng
         );
         stackedDataSet.setStackLabels(new String[]{getString(R.string.nhe), getString(R.string.vua), getString(R.string.nang)}); // Nhãn các mức độ
         stackedDataSet.setValueTextColor(Color.BLACK);
@@ -336,11 +336,11 @@ public class DashBoardActivity extends AppCompatActivity {
                 LineDataSet nangLineDataSet = new LineDataSet(nangData, getString(R.string.nang));
 
                 // Cấu hình LineDataSet
-                nheLineDataSet.setColor(Color.GREEN);
+                nheLineDataSet.setColor(0xFF4CAF50);
                 nheLineDataSet.setDrawValues(false);
-                vuaLineDataSet.setColor(Color.BLACK);
+                vuaLineDataSet.setColor(0xFF2196F3);
                 vuaLineDataSet.setDrawValues(false);
-                nangLineDataSet.setColor(Color.RED);
+                nangLineDataSet.setColor(0xFFF44336);
                 nangLineDataSet.setDrawValues(false);
 
                 // Tạo LineData
