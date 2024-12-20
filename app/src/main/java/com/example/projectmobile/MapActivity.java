@@ -563,7 +563,9 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                                     getString(R.string.severity) + severityLocalized;
 
                                             // Tạo Dialog để hiển thị thông tin
-                                            new AlertDialog.Builder(MapActivity.this)
+                                            Cus_Toast dialog = new Cus_Toast(MapActivity.this, info, getString(R.string.close2));
+                                            dialog.show();
+                                            /*new AlertDialog.Builder(MapActivity.this)
                                                     .setTitle(getString(R.string.potholeinfo))
                                                     .setMessage(info)  // Hiển thị thông tin ổ gà
                                                     .setPositiveButton(getString(R.string.close), new DialogInterface.OnClickListener() {
@@ -573,7 +575,7 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                                         }
                                                     })
                                                     .setCancelable(true)  // Cho phép đóng Dialog khi nhấn ngoài vùng dialog
-                                                    .show();
+                                                    .show();*/
                                         }
                                     }
                                 });
@@ -993,7 +995,45 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                     String currentDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
                     // Hiển thị AlertDialog
-                    AlertDialog alertDialog = new AlertDialog.Builder(MapActivity.this)
+                    Cus_Dialog dialog = new Cus_Dialog(MapActivity.this,
+                            getString(R.string.detect1pothole) + severity1 + getString(R.string.wanttosaveinfo),
+                            getString(R.string.confirm),
+                            getString(R.string.cancel),
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    // Chia sẻ vị trí và thông tin ổ gà
+                                    Toast.makeText(MapActivity.this, getString(R.string.sharingpothole), Toast.LENGTH_SHORT).show();
+
+                                    // Tạo reference mới mỗi lần nhấn nút
+                                    DatabaseReference newReference = FirebaseDatabase.getInstance().getReference().child("sharedPothole").push();
+
+                                    // Tạo thông tin ổ gà mới
+                                    SharePothole location = new SharePothole();
+                                    location.setId(newReference.getKey());  // Lấy key của reference mới tạo
+                                    location.setId(id);
+                                    location.setName(name);
+                                    location.setLongitude(point.longitude());
+                                    location.setLatitude(point.latitude());
+                                    location.setDate(currentDate);
+                                    location.setSeverity(severity);  // Sử dụng giá trị từ selectedSeverity
+
+                                    // Lưu ổ gà vào Firebase
+                                    newReference.setValue(location);
+
+                                }
+                            },
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+
+                                }
+                            });
+
+                    dialog.show();
+                    /*AlertDialog alertDialog = new AlertDialog.Builder(MapActivity.this)
                             .setTitle(getString(R.string.selectpotholelevel))
                             .setMessage(getString(R.string.detect1pothole) + severity1 + getString(R.string.wanttosaveinfo))
                             .setPositiveButton(getString(R.string.confirm), new DialogInterface.OnClickListener() {
@@ -1020,14 +1060,14 @@ public class MapActivity extends AppCompatActivity implements SensorEventListene
                                 }
                             })
                             .setNegativeButton(getString(R.string.cancel), null) // Nếu người dùng không muốn chọn mức độ, có thể hủy
-                            .show();
+                            .show();*/
 
                     // Tạo Handler để tự động đóng AlertDialog sau 3 giây
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if (alertDialog.isShowing()) {
-                                alertDialog.dismiss(); // Đóng AlertDialog nếu còn hiển thị
+                            if (dialog.isShowing()) {
+                                dialog.dismiss(); // Đóng AlertDialog nếu còn hiển thị
                             }
                         }
                     }, 3000); // Thời gian trì hoãn là 3000ms (3 giây)

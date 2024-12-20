@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<!--<resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
@@ -8,4 +8,20 @@
     <color name="yellow">#FFFF00</color>
     <color name="orange">#FFA500</color>
     <color name="perpure">#AC4FC5</color>
+</resources>-->
+
+<resources>
+<color name="black">#FF000000</color>
+<color name="white">#FFFFFFFF</color>
+<color name="green">#097D1A</color>
+<color name="orange">#F4880D</color>
+<color name="grey">#8A8B89</color>
+<color name="yellow">#F0FFA8</color>
+<color name="perpure">#AC4FC5</color>
+<color name="btn_green">#52AA5F</color>
+<color name="txt_green">#3B5028</color>
+<color name="pink">#E4FDDCE4</color>
+<color name="red">#FA2727</color>
+<color name="blue">#0717A7</color>
+<color name="orange2">#F84316</color>
 </resources>

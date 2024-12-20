@@ -3,9 +3,11 @@ package com.example.projectmobile;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -48,6 +51,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class DashBoardActivity extends AppCompatActivity {
     private BarChart barChart;
     private PieChart pieChartLeft;
@@ -55,13 +60,21 @@ public class DashBoardActivity extends AppCompatActivity {
     TextView todayCountValue, chooseCountValue, monthlyCountValue;
     private DatabaseReference mDatabase;
 
+    TextView txt_name;
+    CircleImageView avatar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dash_board);
+
+        avatar = findViewById(R.id.avatar);
+        txt_name = findViewById(R.id.name);
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.dashboard);
+
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -490,5 +503,24 @@ public class DashBoardActivity extends AppCompatActivity {
                 pieChartLeft.setCenterText(""); // Xóa text khi không chọn gì
             }
         });
+    }
+
+    private void showUserInformation(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null){
+            return;
+        }
+        //String email = user.getEmail();
+        //txt_Email.setText(email);
+        String name = user.getDisplayName();
+        if (name == null){
+            txt_name.setVisibility(View.GONE);
+        } else {
+            txt_name.setVisibility(View.VISIBLE);
+            txt_name.setText(name);
+        }
+
+        Uri photo = user.getPhotoUrl();
+        Glide.with(this).load(photo).error(R.drawable.outline_account_circle_24).into(avatar);
     }
 }

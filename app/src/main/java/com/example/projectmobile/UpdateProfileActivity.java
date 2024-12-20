@@ -55,6 +55,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     CircleImageView imgprofile;
     ActivityResultLauncher<Intent> imagePickLauncher;
     Uri uri;
+    TextView txt_name,txt_Email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
         edtcpw = findViewById(R.id.edtpasswordcon);
         imgprofile = findViewById(R.id.imgupdateprofile);
         tvsaveimg = findViewById(R.id.tvsaveimg);
+        txt_name = findViewById(R.id.txt_name);
+        txt_Email = findViewById(R.id.txt_Email);
+
+        showUserInformation();
 
         imagePickLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -241,5 +246,24 @@ public class UpdateProfileActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void showUserInformation(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null){
+            return;
+        }
+        String email = user.getEmail();
+        txt_Email.setText(email);
+        String name = user.getDisplayName();
+        if (name == null){
+            txt_name.setVisibility(View.GONE);
+        } else {
+            txt_name.setVisibility(View.VISIBLE);
+            txt_name.setText(name);
+        }
+
+        Uri photo = user.getPhotoUrl();
+        Glide.with(this).load(photo).error(R.drawable.outline_account_circle_24).into(imgprofile);
     }
 }

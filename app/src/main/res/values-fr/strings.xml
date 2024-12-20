@@ -107,4 +107,35 @@
     <string name="dohaveaccount">Avez-vous un compte ?</string>
     <string name="confirmpassword1">Confirmez le mot de passe</string>
     <string name="numberpotholeonroute">"Nombre de nids-de-poule sur le parcours: "</string>
+    <string name="welcome">Bienvenu!</string>
+    <string name="Decription">Hole Alert est une application qui détecte les nids-de-poule autour de l\'Université nationale du Viet Nam, HCMV, aidant ainsi les utilisateurs à éviter les routes cahoteuses.</string>
+    <string name="decript2">Veuillez vous connecter à votre compte existant</string>
+    <string name="dont_have_account">Ne pas avoir de compte</string>
+    <string name="forgotpassword">Mot de passe oublié</string>
+    <string name="Do_you_have_an_account">Avez-vous un compte</string>
+    <string name="decript3">Inscrivez-vous pour utiliser l\'application ou inscrivez-vous sur Google</string>
+    <string name="Confirm_Password">Confirmez le mot de passe</string>
+    <string name="UserProfile">Profil utilisateur</string>
+    <string name="Changeyouravatar">Changez votre avatar</string>
+    <string name="Fullname">NOM ET PRÉNOM</string>
+    <string name="Newpassword">NOUVEAU MOT DE PASSE</string>
+    <string name="Confirmpass">CONFIRMEZ LE MOT DE PASSE</string>
+    <string name="Password2"> MOT DE PASSE ACTUEL</string>
+    <string name="Save">Sauvegarder</string>
+    <string name="Myaccount">Mon compte</string>
+    <string name="infor">Compte et amp; Sécurité</string>
+    <string name="Settings">Paramètres</string>
+    <string name="Notification_Settings">Paramètres de notification</string>
+    <string name="Support">Soutien</string>
+    <string name="About">À propos</string>
+    <string name="HelpCentre">Demander la suppression du compte</string>
+    <string name="Logout">Se déconnecter</string>
+    <string name="OK">D\'ACCORD</string>
+    <string name="HelpCentre2">Hole Alert est une application qui détecte les nids-de-poule autour de l\'Université nationale du Viet Nam, HCMV, aidant ainsi les utilisateurs à éviter les routes cahoteuses.</string>
+    <string name="deleteaccount">Nous sommes tristes que vous souhaitiez nous quitter, mais veuillez noter que la suppression du compte est irréversible.</string>
+    <string name="Delete">Supprimer</string>
+    <string name="Thongke">DONNÉES STATISTIQUES</string>
+    <string name="Hi">Salut,</string>
+    <string name="close2">FERMER</string>
+
 </resources>

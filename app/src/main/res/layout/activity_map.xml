@@ -41,7 +41,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:id="@+id/searchET"/>
+            android:id="@+id/searchET"
+            android:backgroundTint="@color/white"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.mapbox.search.ui.view.SearchResultsView
@@ -61,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@android:color/black"
+        android:backgroundTint="@android:color/holo_blue_bright"
         app:layout_constraintTop_toBottomOf="@id/searchLayout"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="Speeed fab"
@@ -76,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/yellow"
         android:src="@drawable/baseline_my_location_24"
         app:layout_constraintBottom_toTopOf="@+id/setRoute"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/yellow"
         android:src="@drawable/clear"
         app:layout_constraintBottom_toTopOf="@+id/fabadd"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/yellow"
         android:src="@drawable/baseline_add_24"
         app:layout_constraintBottom_toTopOf="@+id/setRoute"
         app:layout_constraintStart_toStartOf="parent"

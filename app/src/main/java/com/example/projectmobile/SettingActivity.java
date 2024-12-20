@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
@@ -43,33 +44,51 @@ import com.google.firebase.auth.UserInfo;
 import java.util.Locale;
 
 public class SettingActivity extends AppCompatActivity {
-    TextView tvemail, tvname, tvsignout, tvupdate, tvchangeLanguage;
-    GoogleSignInClient googleSignInClient;
-    ImageView imageView;
+
+    private TextView infor, language, Notification, support, support2;
+    private Button btn_Logout;
+    private GoogleSignInClient googleSignInClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loadLocale();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_setting);
-        tvsignout = findViewById(R.id.signout);
-        tvupdate = findViewById(R.id.updateprofile);
-        tvemail = findViewById(R.id.tvemail);
-        tvname = findViewById(R.id.tvname);
-        imageView = findViewById(R.id.imgprofile);
-        tvchangeLanguage = findViewById(R.id.changeLanguage);
-        showUserInformation();
+        infor = findViewById(R.id.infor);
+        language = findViewById(R.id.language);
+        Notification = findViewById(R.id.Notification);
+        support = findViewById(R.id.support);
+        support2 = findViewById(R.id.support2);
+        btn_Logout= findViewById(R.id.btn_Logout);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
-        googleSignInClient = GoogleSignIn.getClient(this, gso);
+        googleSignInClient = GoogleSignIn.getClient(SettingActivity.this, gso);
 
-        tvsignout.setOnClickListener(new View.OnClickListener() {
+        infor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(SettingActivity.this, UpdateProfileActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        language.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLanguageDialog();
+            }
+        });
+
+        btn_Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     for (UserInfo profile : user.getProviderData()) {
@@ -89,19 +108,69 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        tvupdate.setOnClickListener(new View.OnClickListener() {
+        support.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SettingActivity.this, UpdateProfileActivity.class);
-                startActivity(intent);
-                finish();
+            public void onClick(View v) {
+                Cus_Dialog dialog = new Cus_Dialog(SettingActivity.this,
+                        getString(R.string.HelpCentre2),
+                        getString(R.string.OK),
+                        getString(R.string.home),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                               Intent intent = new Intent(SettingActivity.this, MapActivity.class);
+                               startActivity(intent);
+                            }
+                        });
+
+                dialog.show(); // Hiển thị dialog
             }
         });
 
-        tvchangeLanguage.setOnClickListener(new View.OnClickListener() {
+        support2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                showChangeLanguageDialog();
+            public void onClick(View v) {
+                Cus_Dialog dialog = new Cus_Dialog(SettingActivity.this,
+                        getString(R.string.deleteaccount),
+                        getString(R.string.OK),
+                        getString(R.string.Delete),
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                            }
+                        },
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                //  xóa tài khoản
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user != null) {
+                                    user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                // Hủy tài khoản thành công, điều hướng về màn hình đăng nhập
+                                                Intent intent = new Intent(SettingActivity.this, SignInActivity.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                // Xử lý lỗi nếu không thể hủy tài khoản
+                                                Toast.makeText(SettingActivity.this, "Failed to delete account!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                dialog.show(); // Hiển thị dialog
             }
         });
 
@@ -128,25 +197,6 @@ public class SettingActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    private void showUserInformation(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null){
-            return;
-        }
-        String email = user.getEmail();
-        tvemail.setText(email);
-        String name = user.getDisplayName();
-        if (name == null){
-            tvname.setVisibility(View.GONE);
-        } else {
-            tvname.setVisibility(View.VISIBLE);
-            tvname.setText(name);
-        }
-
-        Uri photo = user.getPhotoUrl();
-        Glide.with(this).load(photo).error(R.drawable.user).into(imageView);
     }
 
     private void signOutGoogle() {

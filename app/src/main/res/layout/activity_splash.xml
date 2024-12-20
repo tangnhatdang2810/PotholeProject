@@ -9,8 +9,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
-    android:background="@drawable/bgchinh"
+    android:background="@drawable/cl"
     android:scaleType="centerCrop">
-
 
 </LinearLayout>

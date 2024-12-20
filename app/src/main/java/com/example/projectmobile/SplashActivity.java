@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             //Chua login
-            Intent intent = new Intent(this, SignInActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         } else {
             //Da login
